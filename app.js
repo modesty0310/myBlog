@@ -4,10 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// mySQL connect
+const dotenv = require('dotenv');
+dotenv.config({path: './config.env'});
+let mysqlConnection = require('./middleware/mysql')(process.env.DB_HOST,process.env.DB_USER, process.env.DB_PWD, process.env.DB_NAME);
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+app.use((req, res, next) => {
+  req.database = mysqlConnection;
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
