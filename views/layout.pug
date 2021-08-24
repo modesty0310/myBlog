@@ -1,7 +1,9 @@
-doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+extends top-layout
+
+block content
+  .category-navbar
+    ul
+      each category in categories
+        li.category-navbar-list
+          a(href='/category/' + category.url)= category.name
+  block main

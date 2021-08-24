@@ -20,6 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -32,6 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+// get categories
+app.use(require('./middleware/navigationbar'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
